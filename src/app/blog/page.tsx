@@ -49,6 +49,14 @@ export default function BlogPage() {
           ))}
         </div>
       </main>
+
+      <footer className="pb-8 pt-10 text-center">
+        <p className="text-xs" style={{ color: "var(--text-tertiary)" }}>
+          <a href="/" className="hover:underline" style={{ color: "var(--primary)" }}>Calculadora</a> ·{" "}
+          <a href="/acerca-de" className="hover:underline" style={{ color: "var(--primary)" }}>Acerca de</a> ·{" "}
+          <a href="/contacto" className="hover:underline" style={{ color: "var(--primary)" }}>Contacto</a>
+        </p>
+      </footer>
     </div>
   );
 }

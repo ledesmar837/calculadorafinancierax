@@ -11,5 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     { url: `${base}/privacidad`, lastModified: new Date(), changeFrequency: "yearly" as const, priority: 0.3 },
     { url: `${base}/terminos`, lastModified: new Date(), changeFrequency: "yearly" as const, priority: 0.3 },
+    { url: `${base}/contacto`, lastModified: new Date(), changeFrequency: "yearly" as const, priority: 0.4 },
+    { url: `${base}/acerca-de`, lastModified: new Date(), changeFrequency: "yearly" as const, priority: 0.4 },
   ];
 }

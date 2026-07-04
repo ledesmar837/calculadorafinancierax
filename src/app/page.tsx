@@ -64,6 +64,8 @@ export default function Home() {
           <footer className="mt-10 pb-8 text-center">
             <p className="text-xs" style={{ color: "var(--text-tertiary)" }}>
               <a href="/blog" className="hover:underline" style={{ color: "var(--primary)" }}>Blog</a> ·{" "}
+              <a href="/acerca-de" className="hover:underline" style={{ color: "var(--primary)" }}>Acerca de</a> ·{" "}
+              <a href="/contacto" className="hover:underline" style={{ color: "var(--primary)" }}>Contacto</a> ·{" "}
               <a href="/privacidad" className="hover:underline" style={{ color: "var(--primary)" }}>Privacidad</a> ·{" "}
               <a href="/terminos" className="hover:underline" style={{ color: "var(--primary)" }}>Términos</a>
             </p>
