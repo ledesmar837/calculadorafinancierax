@@ -1,27 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 
 interface Props { onVerified: () => void; }
 
 export default function AgeGate({ onVerified }: Props) {
-  const [step, setStep] = useState<"age" | "turnstile" | "blocked">("age");
-
-  useEffect(() => {
-    if (step === "turnstile") {
-      const t = setTimeout(() => {
-        const el = document.getElementById("cf-turnstile");
-        if (el && (window as any).turnstile) {
-          (window as any).turnstile.render(el, {
-            sitekey: "1x00000000000000000000AA",
-            callback: (token: string) => { if (token) onVerified(); },
-          });
-        }
-      }, 200);
-      return () => clearTimeout(t);
-    }
-  }, [step, onVerified]);
+  const [step, setStep] = useState<"age" | "continue" | "blocked">("age");
 
   return (
     <AnimatePresence mode="wait">
@@ -43,7 +28,7 @@ export default function AgeGate({ onVerified }: Props) {
             </p>
             <p className="text-base font-semibold mb-6" style={{ color: "var(--text-primary)" }}>¿Eres mayor de 18 años?</p>
             <div className="flex gap-3 justify-center">
-              <button onClick={() => setStep("turnstile")}
+              <button onClick={() => setStep("continue")}
                 className="px-8 py-3 rounded-xl font-semibold text-white transition-all hover:scale-105 active:scale-95"
                 style={{ background: "linear-gradient(135deg, var(--primary), #6366f1)", boxShadow: "0 4px 14px var(--primary-glow)" }}>
                 Sí
@@ -58,8 +43,8 @@ export default function AgeGate({ onVerified }: Props) {
         </motion.div>
       )}
 
-      {step === "turnstile" && (
-        <motion.div key="turnstile" initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+      {step === "continue" && (
+        <motion.div key="continue" initial={{ opacity: 0 }} animate={{ opacity: 1 }}
           className="min-h-screen flex items-center justify-center p-4" style={{ background: "var(--surface)" }}>
           <div className="w-full max-w-md p-10 text-center rounded-2xl"
             style={{ background: "var(--surface-secondary)", border: "1px solid var(--border)" }}>
@@ -67,14 +52,20 @@ export default function AgeGate({ onVerified }: Props) {
               style={{ background: "var(--primary-light)" }}>
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2"
                 strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
               </svg>
             </div>
-            <p className="text-base font-semibold mb-2" style={{ color: "var(--text-primary)" }}>Verificación de seguridad</p>
-            <p className="text-sm mb-6" style={{ color: "var(--text-secondary)" }}>
-              Interactúa con la calculadora para continuar y confirmar que no eres un bot.
+            <p className="text-base font-semibold mb-3" style={{ color: "var(--text-primary)" }}>
+              Interactúa con la calculadora para continuar
             </p>
-            <div id="cf-turnstile" className="flex justify-center"></div>
+            <p className="text-sm mb-8" style={{ color: "var(--text-secondary)" }}>
+              Estás a un paso de empezar. Haz clic en Entrar para acceder a tu calculadora financiera personal.
+            </p>
+            <button onClick={onVerified}
+              className="px-10 py-3.5 rounded-xl font-semibold text-white text-base transition-all hover:scale-105 active:scale-95"
+              style={{ background: "linear-gradient(135deg, var(--primary), #6366f1)", boxShadow: "0 4px 14px var(--primary-glow)" }}>
+              Entrar
+            </button>
           </div>
         </motion.div>
       )}
